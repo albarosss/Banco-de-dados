@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import entity.Grupo;
 import entity.Jogos;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -31,7 +30,7 @@ public class TelaData implements TelaSecundaria, EventHandler<ActionEvent> {
 	BorderPane bp = new BorderPane();
 
 	TableView<Jogos> tblJogos = new TableView<>();
-
+	
 	TextField txtData = new TextField();
 
 	@Override
@@ -53,48 +52,47 @@ public class TelaData implements TelaSecundaria, EventHandler<ActionEvent> {
 		dateField(txtData);
 
 		bp.setBottom(tblJogos);
-
+		
 		bp.setCenter(gp);
 		return bp;
 	}
 
 	private void gerarTabela() {
 		DateTimeFormatter df = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-		tblJogos = new TableView<>();
-
+		
 		StringConverter<LocalDate> dateConverter = new LocalDateStringConverter(df, df);
-
+		
 		TableColumn<Jogos, String> colNomeA = new TableColumn<>("Casa");
 		colNomeA.setCellValueFactory(new PropertyValueFactory<Jogos, String>("nome_TimeA"));
 		TableColumn<Jogos, String> colNomeB = new TableColumn<>("Visitante");
 		colNomeB.setCellValueFactory(new PropertyValueFactory<Jogos, String>("nome_TimeB"));
-		tblJogos.getColumns().addAll(colNomeA, colNomeB);
-
+		tblJogos.getColumns().setAll(colNomeA, colNomeB);
+		
+		
 		ObservableList<Jogos> olA = FXCollections.observableArrayList();
-		olA.clear();
 		try {
 			ChamadasDAO dao = new ChamadasDAO();
-			olA.addAll(dao.buscarDatas(regData()));
+			olA.setAll(dao.buscarDatas(regData()));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		tblJogos.setItems(olA);
-
+		
 		bp.setBottom(tblJogos);
 	}
-
+	
 	@Override
 	public void handle(ActionEvent arg0) {
 		gerarTabela();
 
 	}
-
+	
 	private LocalDate regData() {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		LocalDate ld = LocalDate.parse(txtData.getText(), dtf);
 		return ld;
 	}
+
 
 	private static void maxField(final TextField textField, final Integer length) {
 		textField.textProperty().addListener(new ChangeListener<String>() {
