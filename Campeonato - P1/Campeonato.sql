@@ -3,11 +3,11 @@ GO
 USE campeonato
 
 /*
-Fazer uma aplicaÁ„o em Java (Web (Servlets) ou Desktop (Swing ou JavaFX)) com SQL Server
+Fazer uma aplica√ß√£o em Java (Web (Servlets) ou Desktop (Swing ou JavaFX)) com SQL Server
 para resolver os problemas, da seguinte maneira: 
 O sistema deve ter 3 tabelas principais:
 
-- Times (Com todos os 20 times)(N„o È necess·rio CRUD para ela)
+- Times (Com todos os 20 times)(N√£o √© necess√°rio CRUD para ela)
 	Times (CodigoTime | NomeTime | Cidade | Estadio)
 */
 
@@ -18,26 +18,26 @@ CREATE TABLE Times(
 	Estadio			VARCHAR(30)			NOT NULL
 )
 
-INSERT INTO Times VALUES('Botafogo-SP','Ribeir„o Preto','Santa Cruz')
-INSERT INTO Times VALUES('Bragantino','BraganÁa Paulista','Nabi Abi Chedid')
-INSERT INTO Times VALUES('Corinthians','S„o Paulo','Arena Corinthians')
-INSERT INTO Times VALUES('Ferrovi·ria','Araraquara','Fonte Luminosa')
+INSERT INTO Times VALUES('Botafogo-SP','Ribeir√£o Preto','Santa Cruz')
+INSERT INTO Times VALUES('Bragantino','Bragan√ßa Paulista','Nabi Abi Chedid')
+INSERT INTO Times VALUES('Corinthians','S√£o Paulo','Arena Corinthians')
+INSERT INTO Times VALUES('Ferrovi√°ria','Araraquara','Fonte Luminosa')
 INSERT INTO Times VALUES('Guarani','Campinas','Brinco de Ouro da Princesa')
-INSERT INTO Times VALUES('Ituano','Itu','Novelli J˙nior')
-INSERT INTO Times VALUES('Mirassol','Mirassol','JÛse Maria de Campos Maia')
+INSERT INTO Times VALUES('Ituano','Itu','Novelli J√∫nior')
+INSERT INTO Times VALUES('Mirassol','Mirassol','J√≥se Maria de Campos Maia')
 INSERT INTO Times VALUES('Novorizontino','Novo Horizonte','Jorge Ismael de Biasi')
 INSERT INTO Times VALUES('Oeste','Barueri','Arena Barueri')
-INSERT INTO Times VALUES('Palmeiras','S„o Paulo','Allianz Parque')
-INSERT INTO Times VALUES('Ponte Preta','Campinas','MoisÈs Lucarelli')
-INSERT INTO Times VALUES('Red Bull Brasil','Campinas','MoisÈs Lucarelli')
+INSERT INTO Times VALUES('Palmeiras','S√£o Paulo','Allianz Parque')
+INSERT INTO Times VALUES('Ponte Preta','Campinas','Mois√©s Lucarelli')
+INSERT INTO Times VALUES('Red Bull Brasil','Campinas','Mois√©s Lucarelli')
 INSERT INTO Times VALUES('Santos','Santos','Vila Belmiro')
-INSERT INTO Times VALUES('S„o Bento','Sorocaba','Walter Ribeiro')
-INSERT INTO Times VALUES('S„o Caetano','S„o Caetano do Sul','Anacletto Campenella')
-INSERT INTO Times VALUES('S„o Paulo','S„o Paulo','Morumbi')
+INSERT INTO Times VALUES('S√£o Bento','Sorocaba','Walter Ribeiro')
+INSERT INTO Times VALUES('S√£o Caetano','S√£o Caetano do Sul','Anacletto Campenella')
+INSERT INTO Times VALUES('S√£o Paulo','S√£o Paulo','Morumbi')
 
 /*
-- Grupos (Coritnthians, Palmeiras, Santos e S„o Paulo N√O PODEM estar no mesmo
- grupo) (A coluna Grupo n„o pode aceitar nenhum valor diferente de A, B, C, D)
+- Grupos (Coritnthians, Palmeiras, Santos e S√£o Paulo N√ÉO PODEM estar no mesmo
+ grupo) (A coluna Grupo n√£o pode aceitar nenhum valor diferente de A, B, C, D)
  Grupos 
 	(Grupo | CodigoTime)
 */
@@ -48,7 +48,7 @@ PRIMARY KEY (Grupo, Codigo_Time)
 )	
 
 /*
-- Jogos (A primeira fase ocorrer· em 12 datas seguidas, sempre rodada cheia (os 8
+- Jogos (A primeira fase ocorrer√° em 12 datas seguidas, sempre rodada cheia (os 8
  jogos), aos domingos e quartas) Jogos
 	(CodigoTimeA | CodigoTimeB | GolsTimeA | GolsTimeB | Data)
 */
@@ -76,7 +76,7 @@ GO
   O sistema deve se comportar da seguinte maneira:
 
   - Uma tela deve chamar uma procedure que divide os times nos quatro grupos, preenchendo,
-  aleatoriamente (com exceÁ„o da regra j· exposta em Grupos).
+  aleatoriamente (com exce√ß√£o da regra j√° exposta em Grupos).
 */
 CREATE PROC sp_gerarGrupos
 AS
@@ -97,7 +97,7 @@ AS
 	-- Contador de ID dos times
     SET @count = 1
 
-	-- Ira realizar o ciclo atÈ ser definido o grupo dos 16 Times
+	-- Ira realizar o ciclo at√© ser definido o grupo dos 16 Times
     WHILE (@count <= 16) 
     BEGIN 
 		-- Define se ira pegar a vaga na lista principal ou secundaria
@@ -114,7 +114,7 @@ AS
             SET @aux = 's'
         END  
 
-		-- Define um grupo aleatÛriamente
+		-- Define um grupo aleat√≥riamente
         SET @random = FLOOR(RAND()*(LEN(@time))+1)
         -- Utilizando as vagas escolhidas anteriormente
 		SET @grupo = SUBSTRING(@time, @random, 1)
@@ -135,7 +135,7 @@ AS
 		-- Insere na tabela Grupos o grupo sorteado juntamente com o ID do time
         INSERT INTO Grupos VALUES (@grupo, @count)
 
-		-- Passa para o prÛximo time
+		-- Passa para o pr√≥ximo time
         SET @count = @count + 1 
 
         END 
@@ -146,13 +146,13 @@ GO
 	- Uma tela deve gerar as rodadas dos jogos, de acordo com as regras do
 	campeonato, preenchendo a tabela jogos.
 
-	Lembre-se, cada rodada tem 8 jogos (todos os 16 times). Lembre-se tambÈm que, as rodadas
-	v„o acontecer de quarta e domingo, sucessivamente, sem pausas.
+	Lembre-se, cada rodada tem 8 jogos (todos os 16 times). Lembre-se tamb√©m que, as rodadas
+	v√£o acontecer de quarta e domingo, sucessivamente, sem pausas.
 
-	ï Um jogo n„o pode ocorrer 2 vezes, mesmo em rodadas diferentes
-	ï Um time n„o pode aparecer 2 vezes na mesma rodada
-	ï A fase de grupos vai terminar antes da data final do campeonato, uma vez que o
-	  campeonato prevÍ datas das fase eliminatÛrias tambÈm
+	‚Ä¢ Um jogo n√£o pode ocorrer 2 vezes, mesmo em rodadas diferentes
+	‚Ä¢ Um time n√£o pode aparecer 2 vezes na mesma rodada
+	‚Ä¢ A fase de grupos vai terminar antes da data final do campeonato, uma vez que o
+	  campeonato prev√™ datas das fase eliminat√≥rias tamb√©m
 */
 CREATE PROC sp_gerarJogos
 AS
@@ -164,7 +164,8 @@ AS
 			@times_jogados AS INT,
 			@adversario AS INT,
 			@jogou AS INT,
-			@id_time AS INT
+			@id_time AS INT, 
+			@mesmoGrupo AS INT 
 	
 	-- Escolhe o dia de inicio e do fim de campeonato
 	SET @dia_de_hoje = '2019-01-19'
@@ -173,12 +174,13 @@ AS
 	-- Enquanto o campeonato estiver rolando 
 	WHILE (@dia_de_hoje < @dia_final)
 	BEGIN 
-		-- Verifica se È dia de Jogo (Quarta ou Domingo)
+		-- Verifica se √© dia de Jogo (Quarta ou Domingo)
 		IF ((DATEPART(WEEKDAY, @dia_de_hoje) = 1) OR (DATEPART(WEEKDAY, @dia_de_hoje) = 4))
 		BEGIN 
 
 			SET @times_jogados = 1
 
+			-- Enquanto os 16 times n√£o tiverem jogado
 			WHILE (@times_jogados <= 16 )
 			BEGIN 
 
@@ -193,25 +195,25 @@ AS
 									 @id_time = j.CodigoTimeB) AND
 									 @dia_de_hoje = j.DataJogo))
 
-				-- Caso ainda n„o tenha jogado 
+				-- Caso ainda n√£o tenha jogado 
 				IF (@codigo IS NULL)
 				BEGIN
 					SET @jogou = 0
 					SET @contador = 1
 					SET @adversario = 0
 
-					-- Em quanto ainda n„o jogou e ainda tem advers·rios para serem enfrentados
+					-- Em quanto ainda n√£o jogou e ainda tem advers√°rios para serem enfrentados
 					WHILE ((@jogou = 0) AND (@contador < 16))
 					BEGIN 
 						
-						-- Escolhe o advers·rio
+						-- Escolhe o advers√°rio
 						SET @adversario = @id_time + @contador 
 						IF (@adversario > 16)
 						BEGIN
-							SET @adversario = @adversario - 16 
+							SET @adversario = @adversario - 16
 						END 
 
-						-- Verifica se adversario j· jogou no dia de hoje
+						-- Verifica se adversario j√° jogou no dia de hoje
 						SET @codigoAdv = NULL
 						SET @codigoAdv = (SELECT j.CodigoTimeA 
 										  FROM Jogos AS j 
@@ -219,20 +221,28 @@ AS
 												 @adversario = j.CodigoTimeB) AND
 												 @dia_de_hoje = j.DataJogo))
 
-						-- Verfica se ambos os times j· jogaram um contra o outro				
+						-- Verfica se ambos os times j√° jogaram um contra o outro				
 						SET @codigo = NULL
 						SET @codigo = (SELECT j.CodigoTimeA
 									   FROM Jogos AS J 
 									   WHERE (j.CodigoTimeA = @id_time AND j.CodigoTimeB = @adversario) OR 
 											 (j.CodigoTimeA = @adversario AND j.CodigoTimeB = @id_time))
+
+						-- Verifica se ambos os times est√£o no mesmo Grupo					
+						SET @mesmoGrupo = NULL
+						SET @mesmoGrupo = (SELECT g1.Codigo_Time
+										   FROM Grupos g1, Grupos g2
+									       WHERE g1.Grupo != g2.Grupo
+											 AND g1.Codigo_Time = @id_time
+											 AND g2.Codigo_Time = @adversario)
 						
-						-- Se alguma das condiÁıes forem Verdadeiras, ira se decidir um novo adversario.
-						IF ((@codigo IS NOT NULL) OR (@codigoAdv IS NOT NULL) or (@id_time = @adversario))
+						-- Se alguma das condi√ß√µes forem Verdadeiras, ira se decidir um novo adversario.
+						IF ((@codigo IS NOT NULL) OR (@codigoAdv IS NOT NULL) or (@id_time = @adversario) OR (@mesmoGrupo IS NULL))
 						BEGIN 
 							SET @contador = @contador + 1
 						END 
 
-						-- Sen„o eles ir„o se enfrentar 
+						-- Sen√£o eles ir√£o se enfrentar 
 						ELSE 
 						BEGIN 
 							SET @jogou = 1; 
@@ -270,7 +280,7 @@ END
 GO
 
 
---	- Uma tela deve mostrar um Campo, onde o usu·rio digite a data e, em caso de ser uma data com
+--	- Uma tela deve mostrar um Campo, onde o usu√°rio digite a data e, em caso de ser uma data com
 --	rodada, mostre uma tabela com todos os jogos daquela rodada.
 CREATE FUNCTION fn_consultarData (@verfData DATE)
 RETURNS @table TABLE (
@@ -295,8 +305,9 @@ FROM Grupos g
 INNER JOIN Times t
 ON t.CodigoTime = g.Codigo_Time
 
+SELECT * FROM Jogos ORDER BY CodigoTimeA
 SELECT * FROM Times 
-SELECT * FROM Jogos ORDER BY DataJogo
+
 
 -- PROCEDURES -- 
 EXEC sp_gerarGrupos
@@ -309,3 +320,7 @@ SELECT * FROM fn_gerarTabelaGrupo('C')
 SELECT * FROM fn_gerarTabelaGrupo('D')
 
 SELECT * FROM fn_consultarData('2019-01-20')	
+
+-- Truncate -- 
+TRUNCATE TABLE Jogos 
+TRUNCATE TABLE Grupos
