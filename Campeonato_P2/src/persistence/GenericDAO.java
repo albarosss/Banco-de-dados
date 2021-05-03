@@ -11,7 +11,7 @@ public class GenericDAO {
 	private static final String hostName = "127.0.0.1";
 	private static final String dbName = "campeonato";
 	private static final String USER = "sa";
-	private static final String PASS = "SqlServer19";
+	private static final String PASS = "Naruto22";
 	private static final String DRIVER = "net.sourceforge.jtds.jdbc.Driver";
 	
 	private Connection c;
